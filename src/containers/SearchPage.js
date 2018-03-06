@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as BooksAPI from '../BooksAPI'
-import { Book, BookShelf } from '../components'
+import { BookShelf } from '../components'
 
 
 export default class SearchPage extends Component {
@@ -11,10 +12,14 @@ export default class SearchPage extends Component {
     books: []
   }
 
+  static propTypes = {
+    onChangeShelf: PropTypes.func.isRequired
+  }
+
   onChangeQuery = (event) => {
     this.setState({ query: event.target.value });
+
     BooksAPI.search(event.target.value).then(books => {
-      console.log(books)
       this.setState({ books });
     });
   }
@@ -34,7 +39,9 @@ export default class SearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BookShelf books={this.state.books} />
+          <BookShelf
+            books={this.state.books}
+            onChangeShelf={this.props.onChangeShelf} />
         </div>
       </div>
     )
