@@ -23,7 +23,7 @@ const BookShelf = (props) => {
           { props.books.map(book => (
             <Book
               author={getAuthor(book)}
-              cover={book.imageLinks.thumbnail}
+              cover={book.imageLinks ? book.imageLinks.thumbnail : null}
               id={book.id}
               onChangeShelf={props.onChangeShelf}
               shelf={book.shelf}

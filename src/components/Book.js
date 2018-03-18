@@ -60,7 +60,7 @@ class Book extends React.Component {
 
 Book.propTypes = {
   author: PropTypes.string,
-  cover: PropTypes.string.isRequired,
+  cover: PropTypes.string,
   onChangeShelf: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   shelf: PropTypes.string,

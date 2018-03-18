@@ -20,7 +20,11 @@ export default class SearchPage extends Component {
     this.setState({ query: event.target.value });
 
     BooksAPI.search(event.target.value).then(books => {
-      this.setState({ books });
+      if (!Array.isArray(books)) {
+        this.setState({ books: []})
+      } else {
+        this.setState({ books });
+      }
     });
   }
 
