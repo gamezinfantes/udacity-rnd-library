@@ -13,7 +13,8 @@ export default class SearchPage extends Component {
   }
 
   static propTypes = {
-    onChangeShelf: PropTypes.func.isRequired
+    onChangeShelf: PropTypes.func.isRequired,
+    myBooks: PropTypes.array.isRequired
   }
 
   onChangeQuery = (event) => {
@@ -23,9 +24,21 @@ export default class SearchPage extends Component {
       if (!Array.isArray(books)) {
         this.setState({ books: []})
       } else {
-        this.setState({ books });
+        this.setState({ 
+          books: this.hydrateBookWithShelvs([...books])
+       });
       }
     });
+  }
+
+  hydrateBookWithShelvs(books) {
+    return books.map(book => {
+      const b = this.props.myBooks.find(myBook => myBook.id === book.id)
+      if (b) {
+        book.shelf = b.shelf
+      }
+      return book
+    })
   }
 
   render() {
